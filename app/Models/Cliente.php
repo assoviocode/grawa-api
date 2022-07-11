@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes;  /*DELETE LÓGICO*/
 
     protected $primaryKey = 'id';
     protected $table = 'cliente';
@@ -30,6 +31,11 @@ class Cliente extends Model
     protected $hidden = [
         'senha', 'cidade_id'
     ];
+
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 
     public function endereco()
     {

@@ -18,9 +18,14 @@ class UsuarioController extends Controller
         $this->usuarioService = $usuarioService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = $this->usuarioService->getAll();
+        $filters = array();
+
+        if (!empty($request->input('nome')))
+            $filters["nome"] = $request->input('nome');
+
+        $usuarios = $this->usuarioService->getByFilters($filters);
         return response()->json($usuarios, 200);
     }
 

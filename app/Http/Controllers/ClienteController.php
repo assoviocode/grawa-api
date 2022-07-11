@@ -17,10 +17,15 @@ class ClienteController extends Controller
         $this->clienteService = $clienteService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $cliente = $this->clienteService->getAll();
-        return response()->json($cliente, 200);
+        $filters = array();
+
+        if (!empty($request->input('nome')))
+            $filters["nome"] = $request->input('nome');
+
+        $clientes = $this->clienteService->getByFilters($filters);
+        return response()->json($clientes, 200);
     }
 
     public function show($id)

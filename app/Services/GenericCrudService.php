@@ -26,4 +26,9 @@ class GenericCrudService
     {
         return $this->dao->destroy($ids);
     }
+
+    public function getByFilters($filters, $paginate = true)
+    {
+        return $this->dao->getByFilters($filters, $paginate);
+    }
 }

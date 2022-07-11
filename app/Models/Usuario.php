@@ -2,20 +2,22 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
 class Usuario extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable, HasFactory;
+    use Authenticatable, Authorizable, HasFactory, SoftDeletes;
 
     protected $primaryKey = 'id';
     protected $table = 'usuario';
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -34,4 +36,9 @@ class Usuario extends Model implements AuthenticatableContract, AuthorizableCont
     protected $hidden = [
         'senha',
     ];
+
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }
