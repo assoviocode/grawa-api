@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('App\Daos\IUsuarioDAO', 'App\Daos\Eloquent\UsuarioDAO');
+        $this->app->bind('App\Daos\IClienteDAO', 'App\Daos\Eloquent\ClienteDAO');
     }
 }

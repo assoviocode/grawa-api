@@ -13,6 +13,10 @@ class Usuario extends Model implements AuthenticatableContract, AuthorizableCont
 {
     use Authenticatable, Authorizable, HasFactory;
 
+    protected $primaryKey = 'id';
+    protected $table = 'usuario';
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +32,6 @@ class Usuario extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $hidden = [
-        'password',
+        'senha',
     ];
 }

@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cliente extends Model implements AuthenticatableContract, AuthorizableContract
+class Cliente extends Model
 {
-    use Authenticatable, Authorizable, HasFactory;
+    use SoftDeletes;
+
+    protected $primaryKey = 'id';
+    protected $table = 'cliente';
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class Cliente extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $fillable = [
-        'nome', 'email',
+        'nome', 'cnpj', 'razao_social', 'telefone', 'endereco', 'cidade_id', 'responsavel_nome', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email'
     ];
 
     /**
@@ -28,6 +28,11 @@ class Cliente extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $hidden = [
-        'password',
+        'senha', 'cidade_id'
     ];
+
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class);
+    }
 }

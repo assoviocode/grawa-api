@@ -21,9 +21,11 @@ $router->get('/usuarios', 'UsuarioController@index'); /*GetAll*/
 $router->get('/usuarios/{id}', 'UsuarioController@show'); /*GetID*/
 $router->post('/usuarios', 'UsuarioController@store'); /*POST*/
 $router->put('/usuarios/{id}', 'UsuarioController@update'); /*PUT*/
+$router->delete('/usuarios/{id}', 'UsuarioController@destroy'); /*DESTROY*/
 
 $router->get('/clientes', 'ClienteController@index'); /*GetAll*/
 $router->get('/clientes/{id}', 'ClienteController@show'); /*GetID*/
 $router->post('/clientes', 'ClienteController@store'); /*POST*/
 $router->put('/clientes/{id}', 'ClienteController@update'); /*PUT*/
+$router->delete('/clientes/{id}', 'ClienteController@destroy'); /*DESTROY*/
 

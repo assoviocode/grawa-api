@@ -3,33 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Services\ClienteService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class ClienteController extends Controller
 {
+    private $clienteService;
 
-    public function __construct()
+    public function __construct(ClienteService $clienteService)
     {
+        $this->clienteService = $clienteService;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        // $nome = "Teste";
-        // $email = "teste@email.com";
-
-        $cliente = new Cliente();
-        $cliente->nome = "Teste";
-        $cliente->email = "teste@email.com";
-
-        if (!empty($request->input('nome')))
-            $nome = $request->input('nome');
-
-        if (!empty($request->input('email')))
-            $email = $request->input('email');
-
-        return response()->json([$cliente], 200);
+        $cliente = $this->clienteService->getAll();
+        return response()->json($cliente, 200);
     }
 
     public function show($id)
@@ -40,12 +31,7 @@ class ClienteController extends Controller
             return $this->returnBadRequest();
         }
 
-        $cliente = new Cliente();
-        $cliente->id = $id;
-        $cliente->nome = "Teste";
-        $cliente->email = "teste@email.com";
-
-        // $cliente = $this->clienteService->get($intId);
+        $cliente = $this->clienteService->get($intId);
 
         if (is_null($cliente)) {
             return $this->returnNotFound();
@@ -60,11 +46,12 @@ class ClienteController extends Controller
             $request->all(),
             [
                 'nome' => 'required',
-                'email' => 'bail|required|email',
+                'cnpj' => 'required',
+                'razao_social' => 'required',
+                'telefone' => 'required',
             ],
             [
                 'required' => ':attribute é obrigatório',
-                'email' => ':attribute está com formato inválido',
             ]
         );
 
@@ -75,6 +62,7 @@ class ClienteController extends Controller
         $cliente = new Cliente();
         $cliente->fill($request->all());
 
+        $cliente = $this->clienteService->save($cliente);
         return response()->json($cliente, 201);
     }
 
@@ -84,11 +72,13 @@ class ClienteController extends Controller
             $request->all(),
             [
                 'nome' => 'required',
-                'email' => 'bail|required|email',
+                'cnpj' => 'required',
+                'razao_social' => 'required',
+                'telefone' => 'required',
+                'cidade_id' => 'required',
             ],
             [
                 'required' => ':attribute é obrigatório',
-                'email' => ':attribute está com formato inválido',
             ]
         );
 
@@ -96,11 +86,7 @@ class ClienteController extends Controller
             return response()->json(['message' => ucfirst($validator->errors()->first())], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // $cliente = $this->clienteService->get($id);
-
-        $cliente = new Cliente();
-        $cliente->id = $id; /*APAGAR*/
-        $cliente->fill($request->all());
+        $cliente = $this->clienteService->get($id);
 
         if ($cliente == null) {
             return $this->returnNotFound();
@@ -108,7 +94,27 @@ class ClienteController extends Controller
 
         $cliente->fill($request->all());
 
-        // return response()->json([$cliente], 200);
-        return response()->json(['message' => 'Cliente atualizado com sucesso'], 200);
+        $cliente = $this->clienteService->save($cliente);
+
+        return response()->json($cliente, 200);
+    }
+
+    public function destroy(int $id)
+    {
+        try {
+            $intId = intval($id);
+        } catch (\Exception $e) {
+            return $this->returnBadRequest();
+        }
+
+        $cliente = $this->clienteService->get($id);
+
+        if (is_null($cliente)) {
+            return $this->returnBadRequest();
+        }
+
+        $this->clienteService->destroy($intId);
+
+        return response()->json(null, 200);
     }
 }
