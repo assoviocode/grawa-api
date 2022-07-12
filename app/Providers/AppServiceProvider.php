@@ -15,5 +15,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Daos\IUsuarioDAO', 'App\Daos\Eloquent\UsuarioDAO');
         $this->app->bind('App\Daos\IClienteDAO', 'App\Daos\Eloquent\ClienteDAO');
+        $this->app->bind('App\Daos\IProjetoDAO', 'App\Daos\Eloquent\ProjetoDAO');
+        $this->app->bind('App\Daos\IModuloDAO', 'App\Daos\Eloquent\ModuloDAO');
+        $this->app->bind('App\Daos\ITarefaDAO', 'App\Daos\Eloquent\TarefaDAO');
     }
 }

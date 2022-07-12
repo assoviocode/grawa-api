@@ -15,7 +15,7 @@ class Tarefa extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'nome', 'previsao', 'dt_previsao_inicio', 'dt_previsao_termino', 'dt_inicio', 'dt_termino', 'extra', 'responsavel_id', 'modulo_id',
+        'nome', 'status', 'previsao', 'dt_previsao_inicio', 'dt_previsao_termino', 'dt_inicio', 'dt_termino', 'extra', 'responsavel_id', 'modulo_id',
     ];
 
     protected $hidden = [

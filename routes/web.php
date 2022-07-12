@@ -29,3 +29,21 @@ $router->post('/clientes', 'ClienteController@store'); /*POST*/
 $router->put('/clientes/{id}', 'ClienteController@update'); /*PUT*/
 $router->delete('/clientes/{id}', 'ClienteController@destroy'); /*DESTROY*/
 
+$router->get('/projetos', 'ProjetoController@index'); /*GETALL*/
+$router->get('/projetos/{id}', 'ProjetoController@show'); /*GETID*/
+$router->post('/projetos', 'ProjetoController@store'); /*POST*/
+$router->put('/projetos/{id}', 'ProjetoController@update'); /*PUT*/
+$router->delete('/projetos/{id}', 'ProjetoController@destroy'); /*DESTROY*/
+
+$router->get('/modulos', 'ModuloController@index'); /*GETALL*/
+$router->get('/modulos/{id}', 'ModuloController@show'); /*GETID*/
+$router->post('/modulos', 'ModuloController@store'); /*POST*/
+$router->put('/modulos/{id}', 'ModuloController@update'); /*PUT*/
+$router->delete('/modulos/{id}', 'ModuloController@destroy'); /*DESTROY*/
+
+$router->get('/tarefas', 'TarefaController@index'); /*GETALL*/
+$router->get('/tarefas/{id}', 'TarefaController@show'); /*GETID*/
+$router->post('/tarefas', 'TarefaController@store'); /*POST*/
+$router->put('/tarefas/{id}', 'TarefaController@update'); /*PUT*/
+$router->delete('/tarefas/{id}', 'TarefaController@destroy'); /*DESTROY*/
+

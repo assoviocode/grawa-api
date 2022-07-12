@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('tarefa', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->string('nome', 255)->nullable();
+            $table->string('nome', 255);
+            $table->string('status', 255);
             $table->integer('previsao')->nullable();
             $table->date('dt_previsao_inicio')->nullable();
             $table->date('dt_previsao_termino')->nullable();
