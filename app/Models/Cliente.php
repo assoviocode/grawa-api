@@ -29,7 +29,7 @@ class Cliente extends Model
      * @var string[]
      */
     protected $hidden = [
-        'senha', 'cidade_id'
+        'senha',
     ];
 
     protected function serializeDate(DateTimeInterface $date): string
