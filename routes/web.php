@@ -17,14 +17,14 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/usuarios', 'UsuarioController@index'); /*GetAll*/
-$router->get('/usuarios/{id}', 'UsuarioController@show'); /*GetID*/
+$router->get('/usuarios', 'UsuarioController@index'); /*GETALL*/
+$router->get('/usuarios/{id}', 'UsuarioController@show'); /*GETID*/
 $router->post('/usuarios', 'UsuarioController@store'); /*POST*/
 $router->put('/usuarios/{id}', 'UsuarioController@update'); /*PUT*/
 $router->delete('/usuarios/{id}', 'UsuarioController@destroy'); /*DESTROY*/
 
-$router->get('/clientes', 'ClienteController@index'); /*GetAll*/
-$router->get('/clientes/{id}', 'ClienteController@show'); /*GetID*/
+$router->get('/clientes', 'ClienteController@index'); /*GETALL*/
+$router->get('/clientes/{id}', 'ClienteController@show'); /*GETID*/
 $router->post('/clientes', 'ClienteController@store'); /*POST*/
 $router->put('/clientes/{id}', 'ClienteController@update'); /*PUT*/
 $router->delete('/clientes/{id}', 'ClienteController@destroy'); /*DESTROY*/

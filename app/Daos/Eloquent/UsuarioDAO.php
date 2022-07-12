@@ -27,5 +27,4 @@ class UsuarioDAO extends GenericDAO implements IUsuarioDAO
 
         return  $query->get();
     }
-
 }

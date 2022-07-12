@@ -13,7 +13,7 @@ use Laravel\Lumen\Auth\Authorizable;
 
 class Usuario extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable, HasFactory, SoftDeletes;
+    use Authenticatable, Authorizable, SoftDeletes;
 
     protected $primaryKey = 'id';
     protected $table = 'usuario';
