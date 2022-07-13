@@ -29,6 +29,9 @@ $router->post('/clientes', 'ClienteController@store'); /*POST*/
 $router->put('/clientes/{id}', 'ClienteController@update'); /*PUT*/
 $router->delete('/clientes/{id}', 'ClienteController@destroy'); /*DESTROY*/
 
+$router->get('/cidades', 'CidadeController@index'); /*GETALL*/
+$router->get('/cidades/{id}', 'CidadeController@show'); /*GETID*/
+
 $router->get('/projetos', 'ProjetoController@index'); /*GETALL*/
 $router->get('/projetos/{id}', 'ProjetoController@show'); /*GETID*/
 $router->post('/projetos', 'ProjetoController@store'); /*POST*/
