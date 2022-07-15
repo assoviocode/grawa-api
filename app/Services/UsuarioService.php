@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Daos\IUsuarioDAO;
+use App\Models\Usuario;
 
 class UsuarioService extends GenericCrudService
 {

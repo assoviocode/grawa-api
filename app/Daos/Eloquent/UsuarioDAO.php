@@ -27,4 +27,9 @@ class UsuarioDAO extends GenericDAO implements IUsuarioDAO
 
         return  $query->get();
     }
+
+    public function getByEmail(string $email)
+    {
+        return $this->classModel::where('email', $email)->first();
+    }
 }
