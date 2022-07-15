@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Services;
 
 use App\Models\Usuario;
@@ -19,20 +20,16 @@ class TokenService
         ));
     }
 
-    public static function createToken(Usuario $user)
+    public static function createToken(Usuario $usuario)
     {
         return self::encodeJWT(array(
-            'cpf' => $user->cpf,
-            'email' => $user->email,
-            'perfil' => $user->perfil,
-            'datetime' => date("Y-m-d H:i:s")
+            'email' => $usuario->email
         ));
     }
 
     public static function getUserByToken(string $token)
     {
         $dadosAutenticacao = self::decode($token);
-        return Usuario::where('cpf', $dadosAutenticacao->cpf)->first();
+        return Usuario::where('email', $dadosAutenticacao->email)->first();
     }
 }
-

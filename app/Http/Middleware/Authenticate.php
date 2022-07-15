@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use App\Models\Usuario;
+use App\Models\Usuario as Usuario;
 use Firebase\JWT\JWT;
-
 
 class Authenticate
 {
@@ -40,7 +39,7 @@ class Authenticate
     {
         try {
 
-            if (! $request->hasHeader('Authorization')) {
+            if (!$request->hasHeader('Authorization')) {
                 throw new \Exception();
             }
 
@@ -57,7 +56,6 @@ class Authenticate
             }
 
             return $next($request);
-
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Não autorizado'
