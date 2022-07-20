@@ -23,7 +23,9 @@ class TokenService
     public static function createToken(Usuario $usuario)
     {
         return self::encodeJWT(array(
-            'email' => $usuario->email
+            'nome' => $usuario->nome,
+            'email' => $usuario->email,
+            'datetime' => date("Y-m-d H:i:s")
         ));
     }
 
