@@ -12,4 +12,17 @@ class UsuarioService extends GenericCrudService
     {
         $this->dao = $usuarioDAO;
     }
+
+    public function save($usuario): Usuario
+    {
+        $novo = $usuario->id == null;
+
+        if ($novo) {
+            $usuario->encryptPassword();
+        }
+
+        $this->dao->save($usuario);
+
+        return $usuario;
+    }
 }

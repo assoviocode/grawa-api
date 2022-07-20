@@ -67,7 +67,6 @@ class UsuarioController extends Controller
 
         $usuario = new Usuario();
         $usuario->fill($request->all());
-
         $usuario = $this->usuarioService->save($usuario);
         return response()->json($usuario, 201);
     }

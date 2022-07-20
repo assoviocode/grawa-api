@@ -16,9 +16,9 @@ class UsuarioSeeder extends Seeder
     public function run()
     {
         Usuario::create([
-            'nome' => 'Guilherme Isao',
+            'nome' => 'Andre',
             'senha' => Hash::make('123456'),
-            'email' => 'guilherme@assovio.com'
+            'email' => 'andre@assovio.com'
         ]);
     }
 }
