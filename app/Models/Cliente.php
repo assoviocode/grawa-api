@@ -20,7 +20,7 @@ class Cliente extends Model
      * @var string[]
      */
     protected $fillable = [
-        'nome', 'cnpj', 'razao_social', 'telefone', 'endereco' , 'responsavel_nome', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email'
+        'nome', 'cnpj', 'razao_social', 'telefone', 'endereco_id' , 'responsavel_nome', 'responsavel_cpf', 'responsavel_telefone', 'responsavel_email'
     ];
 
     /**

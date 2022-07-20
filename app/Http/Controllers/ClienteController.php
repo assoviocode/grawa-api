@@ -7,6 +7,7 @@ use App\Services\ClienteService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
@@ -47,6 +48,8 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -66,8 +69,13 @@ class ClienteController extends Controller
 
         $cliente = new Cliente();
         $cliente->fill($request->all());
-
         $cliente = $this->clienteService->save($cliente);
+        if (isset($request["endereco"])) {
+            $cliente->endereco()->create($request["endereco"]);
+            $cliente->load('endereco');
+        }
+        DB::commit();
+
         return response()->json($cliente, 201);
     }
 
