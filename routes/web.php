@@ -25,7 +25,7 @@ $router->get('/cidades/{id}', 'CidadeController@show'); /*GETID*/
 
 
 
-$router->group(['middleware' => 'auth'], function () use ($router) {
+// $router->group(['middleware' => 'auth'], function () use ($router) {
 
     $router->get('/usuarios', 'UsuarioController@index'); /*GETALL*/
     $router->get('/usuarios/{id}', 'UsuarioController@show'); /*GETID*/
@@ -56,4 +56,4 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/tarefas', 'TarefaController@store'); /*POST*/
     $router->put('/tarefas/{id}', 'TarefaController@update'); /*PUT*/
     $router->delete('/tarefas/{id}', 'TarefaController@destroy'); /*DESTROY*/
-});
+//});

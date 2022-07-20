@@ -9,14 +9,15 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Auth\Authorizable;
 
 class Usuario extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, SoftDeletes;
 
-    protected $primaryKey = 'id';
     protected $table = 'usuario';
+    protected $primaryKey = 'id';
     public $timestamps = true;
 
     /**
@@ -34,11 +35,16 @@ class Usuario extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $hidden = [
-        'senha',
+        'senha', 'id', 'created_at', 'updated_at', 'deleted_at'
     ];
 
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function encryptPassword()
+    {
+        $this->senha = Hash::make($this->senha);
     }
 }

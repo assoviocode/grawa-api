@@ -80,7 +80,6 @@ class ClienteController extends Controller
                 'cnpj' => 'required',
                 'razao_social' => 'required',
                 'telefone' => 'required',
-                'cidade_id' => 'required',
             ],
             [
                 'required' => ':attribute é obrigatório',

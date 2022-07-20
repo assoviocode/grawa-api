@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use App\Models\Usuario as Usuario;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Authenticate
 {
@@ -45,9 +46,12 @@ class Authenticate
 
             $autorizationHeader = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $autorizationHeader);
-            $dadosAutenticacao = JWT::decode($token, env('APP_KEY'), array(
+
+            $dadosAutenticacao = JWT::decode($token, new Key(env('APP_KEY'), 'HS256'));
+
+            /*$dadosAutenticacao = JWT::decode($token, env('APP_KEY'), array(
                 'HS256'
-            ));
+            ));*/
 
             $user = Usuario::where('email', $dadosAutenticacao->email)->first();
 
@@ -56,6 +60,7 @@ class Authenticate
             }
 
             return $next($request);
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Não autorizado'

@@ -16,7 +16,7 @@ class Endereco extends Model
     ];
 
     protected $fillable = [
-        'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'localidade', 'uf'
+        'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade_id'
     ];
 
     protected $hidden = [
@@ -26,6 +26,11 @@ class Endereco extends Model
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
+    }
+
+    public function endereco()
+    {
+        return $this->belongsTo(Cidade::class);
     }
 
 }

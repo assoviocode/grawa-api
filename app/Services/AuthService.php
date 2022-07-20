@@ -27,7 +27,6 @@ class AuthService
     {
         //Autenticacao
         $usuario = $this->usuarioDAO->getByEmail($email);
-        // dd($usuario);
 
         if (is_null($usuario) || !Hash::check($senha, $usuario->senha)) {
             throw new AuthorizationException("Usuário ou senha inválidos");
