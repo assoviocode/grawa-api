@@ -26,6 +26,7 @@ class ClienteController extends Controller
             $filters["nome"] = $request->input('nome');
 
         $clientes = $this->clienteService->getByFilters($filters);
+        $clientes->load('endereco');
         return response()->json($clientes, 200);
     }
 
@@ -42,6 +43,7 @@ class ClienteController extends Controller
         if (is_null($cliente)) {
             return $this->returnNotFound();
         }
+        $cliente->load('endereco');
 
         return response()->json($cliente);
     }
@@ -105,8 +107,11 @@ class ClienteController extends Controller
         }
 
         $cliente->fill($request->all());
-
         $cliente = $this->clienteService->save($cliente);
+
+        $cliente->endereco()->update($request["endereco"]);
+        $cliente->load('endereco');
+
 
         return response()->json($cliente, 200);
     }

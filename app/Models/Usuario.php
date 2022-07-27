@@ -26,7 +26,7 @@ class Usuario extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $fillable = [
-        'nome', 'email', 'senha'
+        'nome', 'email', 'senha', 'id'
     ];
 
     /**
@@ -35,7 +35,7 @@ class Usuario extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $hidden = [
-        'senha', 'id', 'created_at', 'updated_at', 'deleted_at'
+        'senha', 'created_at', 'updated_at', 'deleted_at'
     ];
 
     protected function serializeDate(DateTimeInterface $date): string

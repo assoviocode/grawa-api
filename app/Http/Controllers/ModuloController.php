@@ -17,9 +17,17 @@ class ModuloController extends Controller
         $this->moduloService = $moduloService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $modulo = $this->moduloService->getAll();
+        $filters = array();
+
+        if (!empty($request->input('nome')))
+            $filters["nome"] = $request->input('nome');
+
+        if (!empty($request->input('status')))
+            $filters["status"] = $request->input('status');
+
+        $modulo = $this->moduloService->getByFilters($filters);
         return response()->json($modulo, 200);
     }
 
