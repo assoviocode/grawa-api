@@ -24,14 +24,12 @@ class TarefaController extends Controller
         if (!empty($request->input('nome')))
             $filters["nome"] = $request->input('nome');
 
-        if (!empty($request->input('status')))
-            $filters["status"] = $request->input('status');
 
         $tarefa = $this->tarefaService->getByFilters($filters);
         return response()->json($tarefa, 200);
     }
 
-    public function show($id)
+    public function show($id, $idProjeto)
     {
         try {
             $intId = intval($id);

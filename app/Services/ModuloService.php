@@ -11,4 +11,9 @@ class ModuloService extends GenericCrudService
     {
         $this->dao = $moduloDAO;
     }
+
+    public function getByProjetoId($idModulo, $idProjeto)
+    {
+        return $this->dao->getByProjetoId($idModulo, $idProjeto);
+    }
 }

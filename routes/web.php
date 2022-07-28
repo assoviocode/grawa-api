@@ -25,7 +25,7 @@ $router->get('/cidades/{id}', 'CidadeController@show'); /*GETID*/
 
 
 
-// $router->group(['middleware' => 'auth'], function () use ($router) {
+$router->group(['middleware' => 'auth'], function () use ($router) {
 
     $router->get('/usuarios', 'UsuarioController@index'); /*GETALL*/
     $router->get('/usuarios/{id}', 'UsuarioController@show'); /*GETID*/
@@ -45,15 +45,15 @@ $router->get('/cidades/{id}', 'CidadeController@show'); /*GETID*/
     $router->put('/projetos/{id}', 'ProjetoController@update'); /*PUT*/
     $router->delete('/projetos/{id}', 'ProjetoController@destroy'); /*DESTROY*/
 
-    $router->get('/modulos', 'ModuloController@index'); /*GETALL*/
-    $router->get('/modulos/{id}', 'ModuloController@show'); /*GETID*/
-    $router->post('/modulos', 'ModuloController@store'); /*POST*/
-    $router->put('/modulos/{id}', 'ModuloController@update'); /*PUT*/
-    $router->delete('/modulos/{id}', 'ModuloController@destroy'); /*DESTROY*/
+    $router->get('/projetos/{idProjeto}/modulos', 'ModuloController@index'); /*GETALL*/
+    $router->get('/projetos/{idProjeto}/modulos/{id}', 'ModuloController@show'); /*GETID*/
+    $router->post('/projetos/{idProjeto}/modulos', 'ModuloController@store'); /*POST*/
+    $router->put('/projetos/{idProjeto}/modulos/{id}', 'ModuloController@update'); /*PUT*/
+    $router->delete('/projetos/{idProjeto}/modulos/{id}', 'ModuloController@destroy'); /*DESTROY*/
 
-    $router->get('/tarefas', 'TarefaController@index'); /*GETALL*/
-    $router->get('/tarefas/{id}', 'TarefaController@show'); /*GETID*/
-    $router->post('/tarefas', 'TarefaController@store'); /*POST*/
-    $router->put('/tarefas/{id}', 'TarefaController@update'); /*PUT*/
-    $router->delete('/tarefas/{id}', 'TarefaController@destroy'); /*DESTROY*/
-//});
+    $router->get('/projetos/{idProjeto}/tarefas', 'TarefaController@index'); /*GETALL*/
+    $router->get('/projetos/{idProjeto}/tarefas/{id}', 'TarefaController@show'); /*GETID*/
+    $router->post('/projetos/{idProjeto}/tarefas', 'TarefaController@store'); /*POST*/
+    $router->put('/projetos/{idProjeto}/tarefas/{id}', 'TarefaController@update'); /*PUT*/
+    $router->delete('/projetos/{idProjeto}/tarefas/{id}', 'TarefaController@destroy'); /*DESTROY*/
+});

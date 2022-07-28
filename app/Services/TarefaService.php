@@ -11,4 +11,5 @@ class TarefaService extends GenericCrudService
     {
         $this->dao = $tarefaDAO;
     }
+
 }

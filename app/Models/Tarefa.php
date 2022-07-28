@@ -19,7 +19,7 @@ class Tarefa extends Model
     ];
 
     protected $hidden = [
-
+        'laravel_through_key'
     ];
 
     protected function serializeDate(DateTimeInterface $date): string

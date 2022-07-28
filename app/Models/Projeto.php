@@ -19,7 +19,6 @@ class Projeto extends Model
     ];
 
     protected $hidden = [
-
     ];
 
     protected function serializeDate(DateTimeInterface $date): string
@@ -30,5 +29,10 @@ class Projeto extends Model
     public function modulos()
     {
         return $this->hasMany(Modulo::class);
+    }
+
+    public function tarefas()
+    {
+        return $this->hasManyThrough(Tarefa::class, Modulo::class);
     }
 }

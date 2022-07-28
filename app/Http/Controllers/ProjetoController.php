@@ -44,7 +44,8 @@ class ProjetoController extends Controller
         if (is_null($projeto)) {
             return $this->returnNotFound();
         }
-        // $projeto->load('cliente');
+
+        $projeto->load('tarefas');
 
         return response()->json($projeto);
     }

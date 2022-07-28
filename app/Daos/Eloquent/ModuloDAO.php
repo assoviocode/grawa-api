@@ -21,8 +21,8 @@ class ModuloDAO extends GenericDAO implements IModuloDAO
             $query->where("nome", "like", "%" . $filters["nome"] . "%");
         }
 
-        if (!empty($filters["status"])) {
-            $query->where("status", "like", "%" . $filters["status"] . "%");
+        if (!empty($filters["projeto_id"])) {
+            $query->where("projeto_id", "like", "%" . $filters["projeto_id"] . "%");
         }
 
         if ($paginate) {
@@ -30,5 +30,10 @@ class ModuloDAO extends GenericDAO implements IModuloDAO
         }
 
         return  $query->get();
+    }
+
+    public function getByProjetoId($idModulo, $idProjeto)
+    {
+        return $this->classModel::where('id', $idModulo)->where('projeto_id', $idProjeto)->first();
     }
 }

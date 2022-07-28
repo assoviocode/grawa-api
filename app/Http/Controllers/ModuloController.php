@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modulo;
+use App\Models\Projeto;
 use App\Services\ModuloService;
+use App\Services\ProjetoService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -11,38 +13,59 @@ use Illuminate\Support\Facades\Validator;
 class ModuloController extends Controller
 {
     private $moduloService;
+    private $projetoService;
 
-    public function __construct(ModuloService $moduloService)
+    public function __construct(ModuloService $moduloService, ProjetoService $projetoService)
     {
         $this->moduloService = $moduloService;
+        $this->projetoService = $projetoService;
     }
 
-    public function index(Request $request)
+    public function index($idProjeto, Request $request)
     {
+        try {
+            $intId = intval($idProjeto);
+        } catch (\Exception $e) {
+            return response()->json('', Response::HTTP_BAD_REQUEST);
+        }
+
+        $projeto = $this->projetoService->get($intId);
+
+        if (is_null($projeto)) {
+            return response()->json('', Response::HTTP_NOT_FOUND);
+        }
+
         $filters = array();
 
         if (!empty($request->input('nome')))
             $filters["nome"] = $request->input('nome');
 
-        if (!empty($request->input('status')))
-            $filters["status"] = $request->input('status');
+        $filters["projeto_id"] = $projeto->id;
 
         $modulo = $this->moduloService->getByFilters($filters);
         return response()->json($modulo, 200);
     }
 
-    public function show($id)
+    public function show($id, $idProjeto)
     {
-        try {
-            $intId = intval($id);
-        } catch (\Exception $e) {
-            return $this->returnBadRequest();
+
+        $idProjeto = intval($idProjeto);
+        $idModulo = intval($id);
+
+        if ($idProjeto == 0 || $idModulo == 0) {
+            return response()->json('', Response::HTTP_BAD_REQUEST);
         }
 
-        $modulo = $this->moduloService->get($intId);
+        $projeto = $this->projetoService->get($idProjeto);
+
+        if (is_null($projeto)) {
+            return response()->json('', Response::HTTP_NOT_FOUND);
+        }
+
+        $modulo = $this->moduloService->getByProjetoId($idModulo, $idProjeto);
 
         if (is_null($modulo)) {
-            return $this->returnNotFound();
+            return response()->json('', Response::HTTP_NOT_FOUND);
         }
 
         return response()->json($modulo);
@@ -71,7 +94,7 @@ class ModuloController extends Controller
         return response()->json($modulo, 201);
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make(
             $request->all(),
