@@ -12,4 +12,14 @@ class TarefaService extends GenericCrudService
         $this->dao = $tarefaDAO;
     }
 
+    public function getByModuloId($idTarefa, $idModulo)
+    {
+        return $this->dao->getByModuloId($idTarefa, $idModulo);
+    }
+
+    public function getByProjetoId($idTarefa, $idProjeto)
+    {
+        return $this->dao->getByProjetoId($idTarefa, $idProjeto);
+    }
+
 }

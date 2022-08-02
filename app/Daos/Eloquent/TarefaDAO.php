@@ -31,4 +31,14 @@ class TarefaDAO extends GenericDAO implements ITarefaDAO
 
         return  $query->get();
     }
+
+    public function getByProjetoId($idTarefa, $idProjeto)
+    {
+        return $this->classModel::where('id', $idTarefa)->where('projeto_id', $idProjeto)->first();
+    }
+
+    public function getByModuloId($idTarefa, $idModulo)
+    {
+        return $this->classModel::where('id', $idTarefa)->where('modulo_id', $idModulo)->first();
+    }
 }

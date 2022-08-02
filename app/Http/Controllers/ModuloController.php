@@ -48,7 +48,6 @@ class ModuloController extends Controller
 
     public function show($id, $idProjeto)
     {
-
         $idProjeto = intval($idProjeto);
         $idModulo = intval($id);
 
@@ -71,8 +70,20 @@ class ModuloController extends Controller
         return response()->json($modulo);
     }
 
-    public function store(Request $request)
+    public function store($idProjeto, Request $request)
     {
+        try {
+            $intId = intval($idProjeto);
+        } catch (\Exception $e) {
+            return response()->json('', Response::HTTP_BAD_REQUEST);
+        }
+
+        $projeto = $this->projetoService->get($intId);
+
+        if (is_null($projeto)) {
+            return response()->json('', Response::HTTP_NOT_FOUND);
+        }
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -94,8 +105,20 @@ class ModuloController extends Controller
         return response()->json($modulo, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update($idProjeto, Request $request, $id)
     {
+        try {
+            $intId = intval($idProjeto);
+        } catch (\Exception $e) {
+            return response()->json('', Response::HTTP_BAD_REQUEST);
+        }
+
+        $projeto = $this->projetoService->get($intId);
+
+        if (is_null($projeto)) {
+            return response()->json('', Response::HTTP_NOT_FOUND);
+        }
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -123,21 +146,28 @@ class ModuloController extends Controller
         return response()->json($modulo, 200);
     }
 
-    public function destroy(int $id)
+    public function destroy($idProjeto, $id)
     {
-        try {
-            $intId = intval($id);
-        } catch (\Exception $e) {
-            return $this->returnBadRequest();
+        $idProjeto = intval($idProjeto);
+        $idModulo = intval($id);
+
+        if ($idProjeto == 0 || $idModulo == 0) {
+            return response()->json('', Response::HTTP_BAD_REQUEST);
         }
 
-        $modulo = $this->moduloService->get($id);
+        $projeto = $this->projetoService->get($idProjeto);
+
+        if (is_null($projeto)) {
+            return response()->json('', Response::HTTP_NOT_FOUND);
+        }
+
+        $modulo = $this->moduloService->get($idModulo);
 
         if (is_null($modulo)) {
             return $this->returnBadRequest();
         }
 
-        $this->moduloService->destroy($intId);
+        $this->moduloService->destroy($idModulo);
 
         return response()->json(null, 200);
     }
